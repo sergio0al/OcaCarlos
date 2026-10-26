@@ -1,0 +1,24 @@
+.destacado{
+    background-color: yellow;
+}
+
+.error{
+    color: hsl(0, 100%, 50%);
+}
+
+.correcto{
+    color: green;
+}
+
+.hidden{
+    display: none;
+}
+
+.casilla{
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    align-content: center;
+    text-align: center;
+}
