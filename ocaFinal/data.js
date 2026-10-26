@@ -1,0 +1,17 @@
+export let preguntes = [
+    {pregunta: "¿Qué selección ha ganado más Mundiales?", opciones: ["A) Francia", "B) Argentina", "C) Brasil"], correcta: "C"},
+    {pregunta: "¿Cuántos jugadores tiene un equipo de fútbol en el campo al comenzar un partido?", opciones: ["A) 10", "B) 11", "C) 12"], correcta: "B"},
+    {pregunta: "¿Qué jugador es conocido como “La Pulga”?", opciones: ["A) Cristiano Ronaldo", "B) Lionel Messi", "C) Neymar"], correcta: "B"},
+    {pregunta: "¿Qué país ganó el Mundial de 2010?", opciones: ["A) España", "B) Países Bajos", "C) Alemania"], correcta: "A"},
+    {pregunta: "¿Cuánto dura un partido de fútbol sin contar la prórroga?", opciones: ["A) 80 minutos", "B) 90 minutos", "C) 100 minutos"], correcta: "B"},
+    {pregunta: "¿En qué país se celebró el Mundial de 2014?", opciones: ["A) Sudáfrica", "B) Rusia", "C) Brasil"], correcta: "C"},
+    {pregunta: "¿Qué equipo ha ganado más Champions League?", opciones: ["A) Real Madrid", "B) AC Milan", "C) FC Barcelona"], correcta: "A"},
+    {pregunta: "¿Cómo se llama el estadio del FC Barcelona?", opciones: ["A) Santiago Bernabéu", "B) Camp Nou", "C) Metropolitano"], correcta: "B"},
+    {pregunta: "¿Qué país ganó el Mundial de 2022?", opciones: ["A) Francia", "B) Croacia", "C) Argentina"], correcta: "C"},
+    {pregunta: "¿Qué color de tarjeta significa expulsión?", opciones: ["A) Amarilla", "B) Roja", "C) Azul"], correcta: "B"},
+    {pregunta: "¿Cuántos jugadores hay en el campo por equipo en un partido de fútbol 11?", opciones: ["A) 9", "B) 10", "C) 11"], correcta: "C"},
+    {pregunta: "¿Qué jugador ganó el Balón de Oro en 2008?", opciones: ["A) Cristiano Ronaldo", "B) Kaká", "C) Lionel Messi"], correcta: "A"},
+    {pregunta: "¿Cómo se llama el trofeo que recibe el campeón del mundo?", opciones: ["A) Copa del Mundo FIFA", "B) Copa América", "C) Copa Libertadores"], correcta: "A"},
+    {pregunta: "¿Qué selección es conocida como “La Roja”?", opciones: ["A) Portugal", "B) España", "C) Bélgica"], correcta: "B"},
+    {pregunta: "¿Qué posición juega el jugador que puede usar las manos dentro de su área?", opciones: ["A) Defensa", "B) Delantero", "C) Portero"], correcta: "C"},
+]
