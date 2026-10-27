@@ -121,6 +121,8 @@ function moverFicha(numero ,div, jugador){
             if(tablero[jugador.posicion].mover){
                 tablero[jugador.posicion].mover(jugador, div)
                 console.log("mover")
+            }else if(tablero[jugador.posicion].miturno){
+                tablero[jugador.posicion].miturno()
             }
             clearInterval(tiempo)
         }
