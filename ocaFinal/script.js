@@ -15,7 +15,7 @@ const tablero = [
     { A: { x: 32, y: 320 }, B: { x: 80, y: 330 } },
     { A: { x: 32, y: 180 }, B: { x: 80, y: 230 } },
     { A: { x: 32, y: 80 }, B: { x: 80, y: 100 } },
-    { A: { x: 176, y: 40 }, B: { x: 176, y: 100 }, mover: function(jugador, div){jugador.posicion = 10;moverFicha(div, jugador);}},
+    { A: { x: 176, y: 40 }, B: { x: 176, y: 100 }, mover: function(jugador, div){moverFicha(4 ,div, jugador)}},
     { A: { x: 286, y: 40 }, B: { x: 276, y: 100 } },
     { A: { x: 376, y: 40 }, B: { x: 386, y: 100 } },
     { A: { x: 460, y: 40 }, B: { x: 460, y: 100 } },
@@ -92,52 +92,39 @@ dado.addEventListener("click", function(){
     let numero = Math.floor(Math.random() * 6 + 1 )
     let jugador = turno === "A" ? infoJugadores.A : infoJugadores.B
     let div = turno === "A" ? divA : divB
+
     numDado.forEach(element => {
         element.style.display = "none"
     });
-
     numDado[numero-1].style.display = "block"
-    numDado[numero-1].style.transform = "rotate(360deg)"
-
-    let paso = 0
-
-    let tiempo = setInterval(() => {
-        paso++
-        if(paso <= numero){
-            jugador.posicion++
-            moverFicha(div, jugador)  
-        }else{
-            clearInterval(tiempo)
-        }
-    }, 250)
 
 
-    const casilla = tablero[jugador.posicion + numero]
-    if(casilla.mover){
-        casilla.mover(jugador, div)  
-    }else if(casilla.pregunta){
-        casilla.pregunta(numero , div, jugador)  
-    }else if(casilla.miturno){
-        casilla.miturno()
-    }
-
-    
+    moverFicha(numero ,div, jugador)
     turno = turno === "A" ? "B" : "A" 
-    divA.classList.remove("destacar")
-    divB.classList.remove("destacar")
-    div.classList.add("destacar")
-
-
 })
+
 
 
 
 
 // MOVER FICHA
 
-function moverFicha(div, jugador){
-    div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px")
-    div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")
+function moverFicha(numero ,div, jugador){
+    let paso = 0
+    let tiempo = setInterval(() => {
+        paso++
+        if(paso <= numero){
+            jugador.posicion++
+            div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px")
+            div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px") 
+        }else{
+            if(tablero[jugador.posicion].mover){
+                tablero[jugador.posicion].mover(jugador, div)
+                console.log("mover")
+            }
+            clearInterval(tiempo)
+        }
+    }, 250)
 }
 
 
