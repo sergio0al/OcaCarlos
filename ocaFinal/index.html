@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <section id="sectionControl">
+            <p class="turnoTxt">Turno de A</p>
+            <div id="final">
+                <p>El ganador ha sido el jugador A</p>
+                <p>Felicidades!!</p>
+                <button id="reiniciarBtn">Reinicar Partida</button>
+            </div>
+
+            <div id="dado">
+                <img src="images/dado/uno.png" alt="uno" class="numDado" >
+                <img src="images/dado/dos.png" alt="dos" class="numDado" style="display: none;">
+                <img src="images/dado/tres.png" alt="tres" class="numDado" style="display: none;">
+                <img src="images/dado/cuatro.png" alt="cuatro" class="numDado" style="display: none;">
+                <img src="images/dado/cinco.png" alt="cinco" class="numDado" style="display: none;">
+                <img src="images/dado/seis.png" alt="seis" class="numDado" style="display: none;">
+            </div>
+
+            <div id="divPregunta">
+                
+            </div>
+
+            
+        </section>     
+        <section id="sectionMapa">
+            <div id="tablero">
+                <img src="tablero.webp" alt="tablero" id="img">
+                <div class="jugadorA">A</div>
+                <div class="jugadorB">B</div>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
