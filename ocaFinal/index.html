@@ -9,8 +9,15 @@
 <body>
     <main>
         <section id="sectionControl">
+            <p class="turnoTxt">Turno de A</p>
+            <div id="final">
+                <p>El ganador ha sido el jugador A</p>
+                <p>Felicidades!!</p>
+                <button id="reiniciarBtn">Reinicar Partida</button>
+            </div>
+
             <div id="dado">
-                <img src="images/dado/uno.png" alt="uno" class="numDado">
+                <img src="images/dado/uno.png" alt="uno" class="numDado" >
                 <img src="images/dado/dos.png" alt="dos" class="numDado" style="display: none;">
                 <img src="images/dado/tres.png" alt="tres" class="numDado" style="display: none;">
                 <img src="images/dado/cuatro.png" alt="cuatro" class="numDado" style="display: none;">
@@ -21,12 +28,14 @@
             <div id="divPregunta">
                 
             </div>
-        </section> 
+
+            
+        </section>     
         <section id="sectionMapa">
             <div id="tablero">
                 <img src="tablero.webp" alt="tablero" id="img">
-                <div class="jugadorA"></div>
-                <div class="jugadorB"></div>
+                <div class="jugadorA">A</div>
+                <div class="jugadorB">B</div>
             </div>
         </section>
     </main>

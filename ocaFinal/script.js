@@ -1,71 +1,155 @@
-import { preguntes } from "./data.js"
+import { preguntes } from "./data/data.js"
+import { infoJugadores } from "./data/data.js"
 
 
+// DOM
 const dado = document.querySelector("#dado")
 let divA = document.querySelector(".jugadorA")
 let divB = document.querySelector(".jugadorB")
 let numDado = document.querySelectorAll(".numDado")
+let final = document.querySelector("#final")
+let reiniciarBtn = document.querySelector("#reiniciarBtn")
+let turnoTxt = document.querySelector(".turnoTxt")
+
+
 let pierdeTurno = false
+let puedeTirar = true
+let turno = "A"
 
 
-
-const tablero = [
-    { A: { x: 30, y: 690 }, B: { x: 86, y: 685 } }, // 0
-    { A: { x: 32, y: 625 }, B: { x: 80, y: 615 } }, // 1
-    { A: { x: 32, y: 530 }, B: { x: 80, y: 500 }, mover: function(jugador, div){jugador.posicion = 21; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")} }, 
-    { A: { x: 32, y: 410 }, B: { x: 80, y: 430 } },
-    { A: { x: 32, y: 320 }, B: { x: 80, y: 330 } },
-    { A: { x: 32, y: 180 }, B: { x: 80, y: 230 }, pierdeTurno: function(){pierdeTurno = true} },
-    { A: { x: 32, y: 80 }, B: { x: 80, y: 100 } },
-    { A: { x: 176, y: 40 }, B: { x: 176, y: 100 }, mover: function(jugador, div){jugador.posicion = 11; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}},
-    { A: { x: 286, y: 40 }, B: { x: 276, y: 100 } },
-    { A: { x: 376, y: 40 }, B: { x: 386, y: 100 } },
-    { A: { x: 460, y: 40 }, B: { x: 460, y: 100 } },
-    { A: { x: 580, y: 40 }, B: { x: 560, y: 100 } },
-    { A: { x: 680, y: 40 }, B: { x: 650, y: 100 }, mover: function(jugador, div){jugador.posicion = 0; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}} ,
-    { A: { x: 700, y: 190 }, B: { x: 655, y: 240 } },
-    { A: { x: 700, y: 360 }, B: { x: 655, y: 310 }, mover: function(jugador, div){jugador.posicion = 24; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}}, // 14
-    { A: { x: 700, y: 490 }, B: { x: 655, y: 450 } },
-    { A: { x: 650, y: 620 }, B: { x: 670, y: 565 } },
-    { A: { x: 540, y: 640 }, B: { x: 560, y: 575 } },
-    { A: { x: 460, y: 640 }, B: { x: 440, y: 575 }, pierdeTurno: function(){pierdeTurno = true}}, // 18
-    { A: { x: 320, y: 640 }, B: { x: 310, y: 575 } },
-    { A: { x: 220, y: 640 }, B: { x: 210, y: 575 } },
-    { A: { x: 150, y: 540 }, B: { x: 175, y: 490 } },
-    { A: { x: 150, y: 410 }, B: { x: 175, y: 360 }, mover: function(jugador, div){jugador.posicion = 24; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}}, // 22
-    { A: { x: 150, y: 200 }, B: { x: 190, y: 270 } },
-    { A: { x: 270, y: 180 }, B: { x: 260, y: 230 } },
-    { A: { x: 380, y: 180 }, B: { x: 350, y: 230 }, mover: function(jugador, div){jugador.posicion = 9; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}}, // 25
-    { A: { x: 475, y: 180 }, B: { x: 450, y: 230 } },
-    { A: { x: 580, y: 180 }, B: { x: 540, y: 230 } },
-    { A: { x: 590, y: 280 }, B: { x: 540, y: 300 } },
-    { A: { x: 590, y: 380 }, B: { x: 540, y: 370 } },
-    { A: { x: 590, y: 500 }, B: { x: 540, y: 460 }, mover: function(jugador, div){jugador.posicion = 27; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}}, // 30
-    { A: { x: 450, y: 500 }, B: { x: 470, y: 450 }, miturno: function(){turno = turno === "A" ? "B" : "A" } }, 
-    { A: { x: 350, y: 500 }, B: { x: 370, y: 450 } }, 
-    { A: { x: 260, y: 500 }, B: { x: 280, y: 450 }, mover: function(jugador, div){jugador.posicion = 20; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}}, // 33
-    { A: { x: 260, y: 310 }, B: { x: 280, y: 370 } }, 
-    { A: { x: 360, y: 310 }, B: { x: 360, y: 370 } }, 
-    { A: { x: 460, y: 350 }, B: { x: 460, y: 350 } }, 
+let tablero = [
+    { A: { x: 35, y: 695 }, B: { x: 91, y: 690 }   }, // 0
+    { A: { x: 37, y: 630 }, B: { x: 85, y: 620 }   }, // 1
+    { A: { x: 37, y: 535 }, B: { x: 85, y: 505 },   mover: function(jugador, div){jugador.posicion = 21; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")} }, 
+    { A: { x: 37, y: 415 }, B: { x: 85, y: 435 }   },
+    { A: { x: 37, y: 325 }, B: { x: 85, y: 335 }   },
+    { A: { x: 37, y: 185 }, B: { x: 85, y: 235 },   pierdeTurno: function(){pierdeTurno = true} },
+    { A: { x: 37, y: 85 }, B: { x: 85, y: 105 }    },
+    { A: { x: 181, y: 45 }, B: { x: 181, y: 105 },  mover: function(jugador, div){jugador.posicion = 11; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}},
+    { A: { x: 291, y: 45 }, B: { x: 281, y: 105 }  },
+    { A: { x: 381, y: 45 }, B: { x: 391, y: 105 }  } ,
+    { A: { x: 465, y: 45 }, B: { x: 465, y: 105 }  },
+    { A: { x: 585, y: 45 }, B: { x: 565, y: 105 }  },
+    { A: { x: 685, y: 45 }, B: { x: 655, y: 105 },  mover: function(jugador, div){jugador.posicion = 0; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}} ,
+    { A: { x: 705, y: 195 }, B: { x: 660, y: 245 } },
+    { A: { x: 705, y: 365 }, B: { x: 660, y: 315 }, mover: function(jugador, div){jugador.posicion = 24; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}}, // 14
+    { A: { x: 705, y: 495 }, B: { x: 660, y: 455 } },
+    { A: { x: 655, y: 625 }, B: { x: 675, y: 570 } },
+    { A: { x: 545, y: 645 }, B: { x: 565, y: 580 } },
+    { A: { x: 465, y: 645 }, B: { x: 445, y: 580 }, pierdeTurno: function(){pierdeTurno = true}}, // 18
+    { A: { x: 325, y: 645 }, B: { x: 315, y: 580 } },
+    { A: { x: 225, y: 645 }, B: { x: 215, y: 580 } },
+    { A: { x: 155, y: 545 }, B: { x: 180, y: 495 } },
+    { A: { x: 155, y: 415 }, B: { x: 180, y: 365 }, mover: function(jugador, div){jugador.posicion = 24; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}}, // 22
+    { A: { x: 155, y: 205 }, B: { x: 195, y: 275 } },
+    { A: { x: 275, y: 185 }, B: { x: 265, y: 235 } },
+    { A: { x: 385, y: 185 }, B: { x: 355, y: 235 }, mover: function(jugador, div){jugador.posicion = 9; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}}, // 25
+    { A: { x: 480, y: 185 }, B: { x: 455, y: 235 } },
+    { A: { x: 585, y: 185 }, B: { x: 545, y: 235 } },
+    { A: { x: 595, y: 285 }, B: { x: 545, y: 305 } },
+    { A: { x: 595, y: 385 }, B: { x: 545, y: 375 } },
+    { A: { x: 595, y: 505 }, B: { x: 545, y: 465 }, mover: function(jugador, div){jugador.posicion = 27; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}}, // 30
+    { A: { x: 455, y: 505 }, B: { x: 475, y: 455 }, miturno: function(){turno = turno === "A" ? "B" : "A" } }, 
+    { A: { x: 355, y: 505 }, B: { x: 375, y: 455 } }, 
+    { A: { x: 265, y: 505 }, B: { x: 285, y: 455 }, mover: function(jugador, div){jugador.posicion = 20; div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px")}}, // 33
+    { A: { x: 265, y: 315 }, B: { x: 285, y: 375 } }, 
+    { A: { x: 365, y: 315 }, B: { x: 365, y: 375 } }, 
+    { A: { x: 465, y: 355 }, B: { x: 465, y: 355 } }, 
 ];
 
 
 
-
-let turno = "A"
-
-let BD = (JSON.parse(localStorage.getItem("infoJugadores")) ? JSON.parse(localStorage.getItem("infoJugadores")) : JSON.parse(JSON.stringify(infoJugadores)))
-function guardarInfo(){
+//LocalStorage
+let BD = JSON.parse(localStorage.getItem("infoJugadores")) ?? JSON.parse(JSON.stringify(infoJugadores))
+divA.style.setProperty("--x", tablero[BD.A.posicion]["A"].x + "px"); divA.style.setProperty("--y", tablero[BD.A.posicion]["A"].y + "px")
+divB.style.setProperty("--x", tablero[BD.B.posicion]["B"].x + "px"); divB.style.setProperty("--y", tablero[BD.B.posicion]["B"].y + "px")
+function guardarLocalStorage(){
     localStorage.setItem("infoJugadores", JSON.stringify(BD))
 }
-guardarInfo()
-console.log(localStorage.getItem("infoJugadores"))
+guardarLocalStorage()
 
 
-const infoJugadores = {
-    A: { id: "A", posicion: 0},
-    B: { id: "B", posicion: 0},
-};
+
+
+// CLICK DADO
+dado.addEventListener("click", function(){
+
+    if(puedeTirar){
+        let numero = Math.floor(Math.random() * 6 + 1 )
+        let jugador = turno === "A" ? BD.A : BD.B
+        let div = turno === "A" ? divA : divB
+        puedeTirar = false
+
+        // Imagenes Dado
+        numDado.forEach(element => {
+            element.style.display = "none"
+            element.style.transform = "rotate(0deg)"
+        });
+        numDado[numero-1].style.display = "block"
+        numDado[numero-1].style.transform = "rotate(360deg)"
+
+
+        // Pierde Turno
+        if(pierdeTurno){
+            turno = turno === "A" ? "A" : "B" 
+            pierdeTurno = false
+        }else{
+            turno = turno === "A" ? "B" : "A" 
+        }
+        moverFicha(numero ,div, jugador)
+    }else{
+        console.log("no puedes tirar")
+    }
+})
+
+
+
+
+// MOVER FICHA
+
+function moverFicha(numero ,div, jugador){
+    let paso = 0
+    let valor = 1
+
+    let tiempo = setInterval(() => {
+        paso++
+
+        if(paso <= numero){
+
+            // Volver Atras Final
+            if(jugador.posicion == tablero.length - 1){
+                valor = -1
+            }
+
+            jugador.posicion += valor
+            div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px")
+            div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px") 
+        }else{
+            if(tablero[jugador.posicion].mover){
+                tablero[jugador.posicion].mover(jugador, div)
+                console.log("mover")
+                puedeTirar = true
+                turnoTxt.textContent = `Turno de ${turno}`
+            }else if(tablero[jugador.posicion].miturno){
+                tablero[jugador.posicion].miturno()
+                puedeTirar = true
+                turnoTxt.textContent = `Turno de ${turno}`
+            }else if(tablero[jugador.posicion].pierdeTurno){
+                tablero[jugador.posicion].pierdeTurno()
+                puedeTirar = true
+                turnoTxt.textContent = `Turno de ${turno}`
+            }else{
+                cargarPregunta(numero, div,jugador)
+            }
+            guardarLocalStorage()
+            clearInterval(tiempo)
+        }
+    }, 250)
+}
+
+
+
+
 
 
 // FUNCION CARGAR PREGUNTA
@@ -88,93 +172,42 @@ function cargarPregunta(posicioneAvanzada, div, jugador){
     formPregunta.addEventListener("click", (e) =>{
         if(e.target.classList.contains("correcta")){
             divPregunta.innerHTML = ""
-            console.log("correct")
+            guardarLocalStorage()
+            puedeTirar = true
+            turnoTxt.textContent = `Turno de ${turno}`
+            //Final 
+            if(jugador.posicion === tablero.length - 1){
+                dado.style.display = "none"
+                final.style.display = "block"
+                turnoTxt,style.display = "none"
+            }else{
+                dado.style.display = "block"
+            }
         }else{
-            console.log("error")
             divPregunta.innerHTML = ""
             jugador.posicion -= 1
-            div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px")
-            div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px") 
+            div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px"); div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px") 
+            guardarLocalStorage()
+            puedeTirar = true
+            dado.style.display = "block"
+            turnoTxt.textContent = `Turno de ${turno}`
         }
-        dado.style.display = "block"
     })
 }
 
 
 
 
-
-// CLICK DADO
-
-dado.addEventListener("click", function(){
-    let numero = Math.floor(Math.random() * 6 + 1 )
-    let jugador = turno === "A" ? infoJugadores.A : infoJugadores.B
-    let div = turno === "A" ? divA : divB
-
-
-
-    // Dado 
-    numDado.forEach(element => {
-        element.style.display = "none"
-        element.style.transform = "rotate(0deg)"
-    });
-    numDado[numero-1].style.display = "block"
-    numDado[numero-1].style.transform = "rotate(360deg)"
-
-
-
-    if(pierdeTurno){
-        turno = turno === "A" ? "A" : "B" 
-        pierdeTurno = false
-    }else{
-        turno = turno === "A" ? "B" : "A" 
-    }
-    moverFicha(numero ,div, jugador)
+// Reiniciar Partida
+reiniciarBtn.addEventListener("click", () =>{
+    BD.A.posicion = 0
+    BD.B.posicion = 0
+    guardarLocalStorage()
+    divA.style.setProperty("--x", tablero[BD.A.posicion]["A"].x + "px"); divA.style.setProperty("--y", tablero[BD.A.posicion]["A"].y + "px")
+    divB.style.setProperty("--x", tablero[BD.B.posicion]["B"].x + "px"); divB.style.setProperty("--y", tablero[BD.B.posicion]["B"].y + "px")
+    final.style.display = "none"
+    dado.style.display = "block"
 })
 
 
-
-
-
-
-// MOVER FICHA
-
-function moverFicha(numero ,div, jugador){
-    let paso = 0
-    let tiempo = setInterval(() => {
-        paso++
-        if(paso <= numero){
-            jugador.posicion++
-            div.style.setProperty("--x", tablero[jugador.posicion][jugador.id].x + "px")
-            div.style.setProperty("--y", tablero[jugador.posicion][jugador.id].y + "px") 
-        }else{
-            if(tablero[jugador.posicion].mover){
-                tablero[jugador.posicion].mover(jugador, div)
-                console.log("mover")
-            }else if(tablero[jugador.posicion].miturno){
-                tablero[jugador.posicion].miturno()
-            }else if(tablero[jugador.posicion].pierdeTurno){
-                tablero[jugador.posicion].pierdeTurno()
-            }else{
-                cargarPregunta(numero, div,jugador)
-            }
-            clearInterval(tiempo)
-        }
-    }, 250)
-}
-
-
-
-
-
-
-
-
-
-
-const click = document.querySelector("#img")
-click.addEventListener("click", function(e){
-    console.log(e.clientX)
-    console.log(e.clientY)
-})
 
